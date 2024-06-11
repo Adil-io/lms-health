@@ -1,11 +1,20 @@
 import "./App.css";
+import { useState } from "react";
 import { Button } from "./components/ui/button";
+import { Calendar } from "./components/ui/calendar";
 
 function App() {
+  const [date, setDate] = useState([]);
+
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <Button variant="outline">Click Me</Button>
+      <Button>Click Me</Button>
+      <Calendar
+        mode="single"
+        selected={date}
+        onSelect={setDate}
+        className="rounded-md border"
+      />
     </div>
   );
 }
