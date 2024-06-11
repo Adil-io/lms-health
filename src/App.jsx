@@ -1,10 +1,14 @@
-import { Button } from "@/components/ui/button";
+import { Header, HealthTable } from "./components";
 
 export default function App() {
   return (
-    <main>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <Button>Click Me</Button>
+    <main className="relative bg-background-custom flex flex-col h-screen">
+      <section>
+        <Header />
+      </section>
+      <section className="flex-1 ">
+        <HealthTable />
+      </section>
     </main>
   );
 }
