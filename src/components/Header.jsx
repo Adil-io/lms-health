@@ -9,11 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Moon, LogOut } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
 
 const Header = () => {
-  const [Dark, setDark] = useState(false);
-
   return (
     <header className="relative flex justify-between items-center bg-background h-[70px] px-[180px]">
       <h1 className="text-4xl text-primary-custom font-bold tracking-tighter cursor-pointer">
