@@ -9,17 +9,27 @@ import {
 import { Button } from "./ui/button";
 import { RefreshCcw } from "lucide-react";
 
-import { WINGS_SERVICES } from "@/constants/WINGS_SERVICES";
+import getWingsServices from "@/constants/WINGS_SERVICES";
 import { useEffect, useState } from "react";
 
 const HealthTable = () => {
-  const [services, setServices] = useState(WINGS_SERVICES);
+  const [services, setServices] = useState(getWingsServices());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchServiceInfo = async (service) => {
       try {
         const res = await fetch(service.url);
+
+        if (res.status != 200) {
+          const json = await res.json();
+          return {
+            ...service,
+            health: false,
+            healthMessage: json.message,
+          };
+        }
+
         const message = await res.text();
         return {
           ...service,
@@ -39,7 +49,6 @@ const HealthTable = () => {
       const updatedServices = await Promise.all(services.map(fetchServiceInfo));
       setServices(updatedServices);
       setLoading(false);
-      console.log(services);
     };
 
     updateServices();
@@ -83,7 +92,9 @@ const HealthTable = () => {
         <TableBody>
           {services.map((service, index) => (
             <TableRow key={index}>
-              <TableCell className="text-center">{service.name}</TableCell>
+              <TableCell className="text-center">
+                {service.name.serviceName}
+              </TableCell>
               <TableCell className="text-center">{service.env}</TableCell>
               <TableCell>
                 <p
@@ -98,7 +109,9 @@ const HealthTable = () => {
                   {loading ? "N/A" : service.health ? "Live" : "Down"}
                 </p>
               </TableCell>
-              <TableCell className="text-center">{service.country}</TableCell>
+              <TableCell className="text-center">
+                {service.name.countryName}
+              </TableCell>
               <TableCell className="text-center">
                 <Button variant="link">{service.url}</Button>
               </TableCell>
