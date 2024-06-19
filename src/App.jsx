@@ -1,12 +1,10 @@
-import { Header, HealthTable } from "./components";
+import { Header, HealthTable } from './components';
 
 export default function App() {
   return (
-    <main className="relative bg-background-custom flex flex-col h-screen">
-      <section>
-        <Header />
-      </section>
-      <section className="flex-1 ">
+    <main className="relative">
+      <Header />
+      <section className="bg-slate-100">
         <HealthTable />
       </section>
     </main>

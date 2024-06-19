@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,18 +6,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Moon, LogOut } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+} from '@/components/ui/dropdown-menu';
+import { Switch } from '@/components/ui/switch';
+import { LogOut, Moon } from 'lucide-react';
 
 const Header = () => {
   return (
-    <header className="relative flex justify-between items-center bg-background h-[70px] px-[180px]">
-      <h1 className="text-4xl text-primary-custom font-bold tracking-tighter cursor-pointer">
+    <header className="flex h-[70px] items-center justify-between bg-background px-[100px]">
+      <h1 className="cursor-pointer text-4xl font-bold tracking-tighter text-primary-custom">
         Wings
       </h1>
       <DropdownMenu>
-        <DropdownMenuTrigger className="rounded-full stroke-none cursor-pointer ring-0">
+        <DropdownMenuTrigger
+          asChild
+          className="cursor-pointer rounded-full stroke-none ring-0"
+        >
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
@@ -28,7 +31,7 @@ const Header = () => {
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <div className="flex justify-between gap-5">
-              <span className="flex align-baseline gap-1">
+              <span className="flex gap-1 align-baseline">
                 <Moon className="fill-foreground stroke-none" />
                 <p>Dark Mode</p>
               </span>
@@ -36,8 +39,8 @@ const Header = () => {
             </div>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <span className="flex align-baseline gap-1">
-              <LogOut className="fill-foreground stroke-none" />
+            <span className="flex gap-1 align-baseline">
+              <LogOut />
               <p>Sign Out</p>
             </span>
           </DropdownMenuItem>

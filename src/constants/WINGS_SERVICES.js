@@ -1,23 +1,26 @@
-import ENV from "./ENV";
-import COUNTRY from "./COUNTRY";
-import { CWINGS } from "@/lib/envHelper";
+import { CWINGS } from '@/lib/envHelper';
+import COUNTRY from './COUNTRY';
+import ENV from './ENV';
 
 export default function getWingsServices() {
   return Object.keys(COUNTRY).flatMap((country) => [
     {
       env: ENV.DEV,
-      name: COUNTRY[country],
-      url: CWINGS.DEV[country],
+      serviceName: COUNTRY[country].serviceName,
+      country: COUNTRY[country].countryName,
+      healthUrl: CWINGS.DEV[country],
     },
-    {
-      env: ENV.TEST,
-      name: COUNTRY[country],
-      url: CWINGS.TEST[country],
-    },
-    {
-      env: ENV.PROD,
-      name: COUNTRY[country],
-      url: CWINGS.PROD[country],
-    },
+    // {
+    //   env: ENV.TEST,
+    //   serviceName: COUNTRY[country].serviceName,
+    //   country: COUNTRY[country].countryName,
+    //   healthUrl: CWINGS.TEST[country],
+    // },
+    // {
+    //   env: ENV.PROD,
+    //   serviceName: COUNTRY[country].serviceName,
+    //   country: COUNTRY[country].countryName,
+    //   healthUrl: CWINGS.PROD[country],
+    // },
   ]);
 }
