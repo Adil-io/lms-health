@@ -10,17 +10,17 @@ export default function getWingsServices() {
       country: COUNTRY[country].countryName,
       healthUrl: CWINGS.DEV[country],
     },
-    // {
-    //   env: ENV.TEST,
-    //   serviceName: COUNTRY[country].serviceName,
-    //   country: COUNTRY[country].countryName,
-    //   healthUrl: CWINGS.TEST[country],
-    // },
-    // {
-    //   env: ENV.PROD,
-    //   serviceName: COUNTRY[country].serviceName,
-    //   country: COUNTRY[country].countryName,
-    //   healthUrl: CWINGS.PROD[country],
-    // },
+    {
+      env: ENV.TEST,
+      serviceName: COUNTRY[country].serviceName,
+      country: COUNTRY[country].countryName,
+      healthUrl: CWINGS.TEST[country],
+    },
+    {
+      env: ENV.PROD,
+      serviceName: COUNTRY[country].serviceName,
+      country: COUNTRY[country].countryName,
+      healthUrl: CWINGS.PROD[country],
+    },
   ]);
 }

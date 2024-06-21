@@ -73,7 +73,7 @@ const DataTable = ({ columns, data }) => {
                   <DropdownMenuCheckboxItem
                     key={column.id}
                     className="capitalize"
-                    checked={column.getIsVisible}
+                    checked={column.getIsVisible()}
                     onCheckedChange={(value) =>
                       column.toggleVisibility(!!value)
                     }
@@ -105,7 +105,7 @@ const DataTable = ({ columns, data }) => {
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="text-nowrap bg-background text-center">
+          <TableBody className="text-nowrap bg-background">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

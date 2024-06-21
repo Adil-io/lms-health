@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,36 +7,39 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ArrowUpDown } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 
 export const columns = [
   {
     accessorKey: 'serviceName',
-    header: () => (
-      <div className="text-nowrap text-center text-background">
-        Service Name
-      </div>
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Service Name"
+        className="text-center text-background"
+      />
     ),
   },
   {
     accessorKey: 'env',
-    header: () => <div className="text-center text-background">Env</div>,
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Env"
+        className="text-center text-background"
+      />
+    ),
     cell: ({ row }) => <div className="text-center">{row.getValue('env')}</div>,
   },
   {
     accessorKey: 'health',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          className="text-background"
-        >
-          Health
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Health"
+        className="text-center text-background"
+      />
+    ),
     cell: ({ row }) => {
       const health = row.original;
 
@@ -50,22 +54,17 @@ export const columns = [
   },
   {
     accessorKey: 'country',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          className="text-background"
-        >
-          Country
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Country"
+        className="text-background"
+      />
+    ),
   },
   {
     accessorKey: 'healthUrl',
-    header: () => <div className="text-center text-background">Health Url</div>,
+    header: () => <div className="text-center text-background">Health URL</div>,
   },
   {
     accessorKey: 'healthMessage',
@@ -83,14 +82,15 @@ export const columns = [
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0">
               <span className="sr-only">Open Menu</span>
+              <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(service.serviceName)}
+              onClick={() => navigator.clipboard.writeText(service.healthUrl)}
             >
-              Copy Service Name
+              Copy Health URL
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
