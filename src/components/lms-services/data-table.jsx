@@ -6,7 +6,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-
 import {
   Table,
   TableBody,
@@ -23,6 +22,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  PlusCircle,
+  SlidersHorizontal,
+} from 'lucide-react';
 import { useState } from 'react';
 
 const DataTable = ({ columns, data }) => {
@@ -49,19 +56,50 @@ const DataTable = ({ columns, data }) => {
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center gap-4 py-4">
         <Input
           placeholder="Filter service..."
           value={table.getColumn('serviceName')?.getFilterValue() ?? ''}
           onChange={(e) =>
             table.getColumn('serviceName')?.setFilterValue(e.target.value)
           }
-          className="max-w-sm"
+          className="max-w-[250px]"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
+            <Button
+              variant="outline"
+              className="flex items-center justify-between gap-2 rounded-md"
+            >
+              <PlusCircle className="h-4 w-4" />
+              <span>Health</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {
+              // TODO implement this
+            }
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              className="flex items-center justify-between gap-2 rounded-md"
+            >
+              <PlusCircle className="h-4 w-4" />
+              <span>Env</span>
+            </Button>
+          </DropdownMenuTrigger>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              className="ml-auto flex items-center justify-between gap-2 rounded-md"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              <span>View</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -87,7 +125,7 @@ const DataTable = ({ columns, data }) => {
       </div>
       <div className="rounded-md border">
         <Table>
-          <TableHeader className="text-nowrap bg-primary-custom">
+          <TableHeader className="text-nowrap">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -135,23 +173,59 @@ const DataTable = ({ columns, data }) => {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+      <div className="mt-2 flex w-full items-center justify-between space-x-2 py-4">
+        <p className="text-md font-semibold text-[#686868]">
+          0 of 50 rows selected
+        </p>
+        <div className="text-md flex w-1/3 items-center justify-between gap-2 text-[#686868]">
+          <div className="flex items-center gap-2">
+            <p className="text-md text-nowrap font-semibold text-[#686868]">
+              Rows per page
+            </p>
+            <Input type="number" className="h-6 w-[73px]" />
+          </div>
+          <p className="text-md text-nowrap font-semibold text-[#686868]">
+            Page 1 of {table.getPageCount()}
+          </p>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.firstPage()}
+              disabled={!table.getCanPreviousPage()}
+              className="h-6 w-8 p-0"
+            >
+              <ChevronsLeft />
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              className="h-6 w-8 p-0"
+            >
+              <ChevronLeft />
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              className="h-6 w-8 p-0"
+            >
+              <ChevronRight />
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.lastPage()}
+              disabled={!table.getCanNextPage()}
+              className="h-6 w-8 p-0"
+            >
+              <ChevronsRight />
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

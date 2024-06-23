@@ -1,3 +1,4 @@
+import { useTheme } from '@/components/theme-provider';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -11,8 +12,10 @@ import { Switch } from '@/components/ui/switch';
 import { LogOut, Moon } from 'lucide-react';
 
 const Header = () => {
+  const { theme, setTheme } = useTheme();
+
   return (
-    <header className="flex h-[70px] items-center justify-between bg-background px-[100px]">
+    <header className="flex h-[70px] items-center justify-between bg-background">
       <h1 className="cursor-pointer text-4xl font-bold tracking-tighter text-primary-custom">
         Wings
       </h1>
@@ -35,7 +38,16 @@ const Header = () => {
                 <Moon className="fill-foreground stroke-none" />
                 <p>Dark Mode</p>
               </span>
-              <Switch />
+              <Switch
+                checked={theme === 'dark'}
+                onCheckedChange={() => {
+                  if (theme === 'dark') {
+                    setTheme('light');
+                  } else {
+                    setTheme('dark');
+                  }
+                }}
+              />
             </div>
           </DropdownMenuItem>
           <DropdownMenuItem>

@@ -7,47 +7,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal } from 'lucide-react';
+import { HeartPulse, MoreHorizontal } from 'lucide-react';
 
 export const columns = [
   {
     accessorKey: 'serviceName',
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Service Name"
-        className="text-center text-background"
-      />
+      <DataTableColumnHeader column={column} title="Service Name" />
     ),
   },
   {
     accessorKey: 'env',
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Env"
-        className="text-center text-background"
-      />
+      <DataTableColumnHeader column={column} title="Env" />
     ),
-    cell: ({ row }) => <div className="text-center">{row.getValue('env')}</div>,
   },
   {
     accessorKey: 'health',
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Health"
-        className="text-center text-background"
-      />
+      <DataTableColumnHeader column={column} title="Health" />
     ),
     cell: ({ row }) => {
       const health = row.original;
 
       return (
-        <div
-          className={`${health ? 'bg-[#DDEDDB] text-[#3D5443]' : 'bg-[#FFE3DF] text-[#72383C]'} px-4 text-center font-semibold`}
-        >
-          {health ? 'Live' : 'Down'}
+        <div className={`${health ? 'text-[#679F72]' : 'text-[#834045]'}`}>
+          <HeartPulse />
         </div>
       );
     },
@@ -55,22 +40,16 @@ export const columns = [
   {
     accessorKey: 'country',
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Country"
-        className="text-background"
-      />
+      <DataTableColumnHeader column={column} title="Country" />
     ),
   },
   {
     accessorKey: 'healthUrl',
-    header: () => <div className="text-center text-background">Health URL</div>,
+    header: () => <div>Health URL</div>,
   },
   {
     accessorKey: 'healthMessage',
-    header: () => (
-      <div className="text-center text-background">Health Message</div>
-    ),
+    header: () => <div>Health Message</div>,
   },
   {
     id: 'actions',

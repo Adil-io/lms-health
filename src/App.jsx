@@ -2,9 +2,12 @@ import { Header, HealthTable } from './components';
 
 export default function App() {
   return (
-    <main className="relative">
+    <main className="bg-background px-12 py-2">
       <Header />
-      <section className="bg-slate-100">
+      <section className="mt-5">
+        <h2 className="text-xl">LMS Health Check</h2>
+      </section>
+      <section>
         <HealthTable />
       </section>
     </main>
