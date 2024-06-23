@@ -46,6 +46,19 @@ export const columns = [
   {
     accessorKey: 'healthUrl',
     header: () => <div>Health URL</div>,
+    cell: ({ row }) => {
+      const healthUrl = row.original.healthUrl;
+
+      return (
+        <a
+          href={healthUrl}
+          className="text-md font-medium text-primary-custom hover:underline"
+          target="_blank"
+        >
+          {healthUrl}
+        </a>
+      );
+    },
   },
   {
     accessorKey: 'healthMessage',

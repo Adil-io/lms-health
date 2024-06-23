@@ -27,13 +27,20 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  ChevronsUpDown,
   PlusCircle,
   SlidersHorizontal,
 } from 'lucide-react';
 import { useState } from 'react';
 
+const pageSizes = [5, 10, 15, 20];
+
 const DataTable = ({ columns, data }) => {
   const [sorting, setSorting] = useState([]);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
   const [columnFilters, setColumnFilters] = useState([]);
   const [columnVisibility, setColumnVisibility] = useState({});
 
@@ -47,12 +54,22 @@ const DataTable = ({ columns, data }) => {
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
+      pagination,
     },
   });
+
+  const handlePageSizeChange = (e) => {
+    console.log(e);
+    setPagination({
+      pageIndex: 0,
+      pageSize: e.target.value,
+    });
+  };
 
   return (
     <div>
@@ -174,18 +191,50 @@ const DataTable = ({ columns, data }) => {
         </Table>
       </div>
       <div className="mt-2 flex w-full items-center justify-between space-x-2 py-4">
-        <p className="text-md font-semibold text-[#686868]">
-          0 of 50 rows selected
+        <p className="text-sm font-medium text-[#686868]">
+          0 of TODO rows selected
         </p>
-        <div className="text-md flex w-1/3 items-center justify-between gap-2 text-[#686868]">
+        <div className="text-md flex w-1/3 items-center justify-between gap-2 text-primary">
           <div className="flex items-center gap-2">
-            <p className="text-md text-nowrap font-semibold text-[#686868]">
+            <p className="text-nowrap text-sm font-medium text-primary">
               Rows per page
             </p>
-            <Input type="number" className="h-6 w-[73px]" />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="ml-auto flex items-center justify-between gap-2 rounded-md"
+                >
+                  <span className="text-sm font-medium text-primary">
+                    {pagination.pageSize}
+                  </span>
+                  <ChevronsUpDown className="h-4 w-4 text-primary" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {pageSizes &&
+                  pageSizes.map((pageSize, index) => {
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={index}
+                        checked={pageSize === pagination.pageSize}
+                        onCheckedChange={() => {
+                          setPagination({
+                            pageIndex: 0,
+                            pageSize,
+                          });
+                        }}
+                      >
+                        {pageSize}
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-          <p className="text-md text-nowrap font-semibold text-[#686868]">
-            Page 1 of {table.getPageCount()}
+          <p className="text-nowrap text-sm font-medium text-primary">
+            Page {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount()}
           </p>
           <div className="flex items-center gap-2">
             <Button
